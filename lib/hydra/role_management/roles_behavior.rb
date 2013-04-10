@@ -9,6 +9,9 @@ module Hydra
 
       def index
       end
+
+      def show
+      end
     end
   end
 end

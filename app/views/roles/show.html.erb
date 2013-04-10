@@ -1,0 +1,12 @@
+<h2>Role: <%= @role.name %></h2>
+<h3>Accounts:</h3>
+<ul>
+  <% @role.users.each do |user| %>
+    <li><%= user.user_key %></li>
+  <% end %>
+</ul>
+<%= form_tag role_management.add_user_role_path(@role) do %>
+  <%= label_tag 'user_key', 'User' %>
+  <%= text_field_tag 'user' %>
+  <%= submit_tag "Add" %>
+<% end %>
