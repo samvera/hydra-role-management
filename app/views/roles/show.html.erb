@@ -5,8 +5,9 @@
     <li><%= user.user_key %></li>
   <% end %>
 </ul>
+<h3>Add a new account:</h3>
 <%= form_tag role_management.add_user_role_path(@role) do %>
   <%= label_tag 'user_key', 'User' %>
-  <%= text_field_tag 'user' %>
+  <%= text_field_tag 'user_key' %>
   <%= submit_tag "Add" %>
 <% end %>
