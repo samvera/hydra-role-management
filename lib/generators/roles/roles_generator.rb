@@ -38,12 +38,11 @@ This generator makes the following changes to your application:
   def inject_user_roles_behavior
     file_path = "app/models/#{model_name.underscore}.rb"
     if File.exists?(file_path) 
-      inject_into_class file_path, model_name.classify do 
-        "# Connects this user object to Sufia behaviors. " +
+      code = "# Connects this user object to Role-management behaviors. " +
         "\n include Hydra::RoleManagement::UserRoles\n"        
-      end
+      inject_into_file file_path, code, { :after => /include Hydra::User/ }
     else
-      puts "     \e[31mFailure\e[0m  Sufia requires a user object. This generators assumes that the model is defined in the file #{file_path}, which does not exist.  If you used a different name, please re-run the generator and provide that name as an argument. Such as \b  rails -g sufia client" 
+      puts "     \e[31mFailure\e[0m  hydra-role-management requires a user object. This generators assumes that the model is defined in the file #{file_path}, which does not exist.  If you used a different name, please re-run the generator and provide that name as an argument. Such as \b  rails -g roles client" 
     end    
   end
 
