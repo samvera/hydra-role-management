@@ -24,12 +24,11 @@ class TestAppGenerator < Rails::Generators::Base
     generate 'hydra:head', '-f'
   end
 
-  def run_sufia_generator
-    say_status("warning", "GENERATING SUFIA", :yellow)       
+  def run_roles_generator
+    say_status("warning", "GENERATING ROLES", :yellow)       
 
-    generate 'sufia', '-f'
+    generate 'roles', '-f'
 
-    remove_file 'spec/factories/users.rb'
   end
 
   # def copy_test_models

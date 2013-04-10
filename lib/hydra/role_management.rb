@@ -1,7 +1,8 @@
 module Hydra
   module RoleManagement
-    # extend ActiveSupport::Autoload
-    # autoload :SearchService
+    extend ActiveSupport::Autoload
+    autoload :RolesBehavior
+    autoload :UserRoles
     # autoload :Routes
     # autoload :Version
     # def self.add_routes(router, options = {})

@@ -29,7 +29,7 @@ This generator makes the following changes to your application:
   # Setup the database migrations
   def copy_migrations
     # Can't get this any more DRY, because we need this order.
-    %w{acts_as_follower_migration.rb	add_social_to_users.rb}.each do |f|
+    %w{user_roles.rb}.each do |f|
       better_migration_template f
     end
   end
@@ -40,7 +40,7 @@ This generator makes the following changes to your application:
     if File.exists?(file_path) 
       inject_into_class file_path, model_name.classify do 
         "# Connects this user object to Sufia behaviors. " +
-        "\n include Hydra::UserRoles\n"        
+        "\n include Hydra::RoleManagement::UserRoles\n"        
       end
     else
       puts "     \e[31mFailure\e[0m  Sufia requires a user object. This generators assumes that the model is defined in the file #{file_path}, which does not exist.  If you used a different name, please re-run the generator and provide that name as an argument. Such as \b  rails -g sufia client" 

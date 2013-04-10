@@ -8,4 +8,7 @@ require 'rspec/rails'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
+  config.before(:each, :type=>"controller") { @routes = Hydra::RoleManagement::Engine.routes }
+  config.include Devise::TestHelpers, :type => :controller
+  
 end
