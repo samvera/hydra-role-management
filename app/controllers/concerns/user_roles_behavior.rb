@@ -1,19 +1,14 @@
 module Hydra
   module RoleManagement
-    module RolesBehavior
+    module UserRolesBehavior
       extend ActiveSupport::Concern
 
       included do
-        load_and_authorize_resource 
+        load_and_authorize_resource :role
       end
 
-      def index
-      end
-
-      def show
-      end
-
-      def add_user
+      def create
+        authorize! :add_user, @role
         u = ::User.find_by_user_key(params[:user_key])
         if u
           u.roles << @role
@@ -26,3 +21,4 @@ module Hydra
     end
   end
 end
+
