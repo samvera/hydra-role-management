@@ -3,11 +3,9 @@ module Hydra
     class Engine < ::Rails::Engine
       engine_name 'role_management'
 
-      #config.eager_load_paths << "app/models/concerns"
-      #eager load paths don't seem to get these loaded before the application models get loaded
-      Dir["#{root}/app/models/concerns/**/*.rb"].sort.each {|f| require f}
-          
-      config.eager_load_paths << "app/controllers/concerns"
+      # Rails 4 should do this automatically:
+      config.paths.add "app/controllers/concerns", eager_load: true
+      config.paths.add "app/models/concerns", eager_load: true
     end
   end
 end
