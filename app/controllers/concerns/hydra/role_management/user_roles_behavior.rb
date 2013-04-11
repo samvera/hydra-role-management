@@ -18,6 +18,12 @@ module Hydra
           redirect_to role_management.role_path(@role), :flash=> {:error=>"Unable to find the user #{params[:user_key]}"}
         end
       end
+
+      def destroy
+        authorize! :remove_user, @role
+        @role.users.delete(::User.find(params[:id]))
+        redirect_to role_management.role_path(@role)
+      end
     end
   end
 end
