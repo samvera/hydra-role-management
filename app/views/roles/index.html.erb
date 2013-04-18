@@ -6,6 +6,6 @@
 </ul>
 
 <% if can? :create, Role %>
-  <%= link_to "Create a new role", role_management.new_role_path %>
+  <%= button_to "Create a new role", role_management.new_role_path, method: :get, class: 'btn btn-primary' %>
 <% end %>
 

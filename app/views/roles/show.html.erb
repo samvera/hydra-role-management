@@ -12,5 +12,8 @@
 <h3>Add a new account:</h3>
 <%= bootstrap_form_tag role_management.role_users_path(@role) do %>
   <%= bootstrap_text_field_tag 'user_key', '', :label=>'User' %>
-  <%= bootstrap_submit_tag "Add" %>
+  <%= bootstrap_actions do %>
+    <%= bootstrap_submit_tag "Add" %>
+    <%= bootstrap_cancel_tag %>
+  <% end %>
 <% end %>
