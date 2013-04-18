@@ -12,6 +12,7 @@ describe RolesController do
     Role.create(name: 'foo')
   end
 
+
   describe "with a user who cannot edit users" do
     it "should redirect to the homepage" do
       lambda { get :index }.should raise_error CanCan::AccessDenied
@@ -37,4 +38,29 @@ describe RolesController do
       assigns[:role].should == role
     end
   end
+
+  describe "with a user who can create roles" do
+    before do
+      ability.can :create, Role
+    end
+    it "should be able to make a new role" do
+      get :new
+      response.should be_successful
+      assigns[:role].should be_kind_of Role
+    end
+
+    it "should be able to create a new role" do
+      post :create, :role=>{name: 'my_role'} 
+      response.should redirect_to @routes.url_helpers.roles_path
+      assigns[:role].should_not be_new_record
+      assigns[:role].name.should == 'my_role'
+    end
+    it "should not create role with an error" do
+      post :create, :role=>{name: 'my role'} 
+      assigns[:role].name.should == 'my role'
+      assigns[:role].errors[:name].should == ['Only letters, numbers, hyphens, underscores and periods are allowed']
+      response.should be_successful
+    end
+  end
+
 end

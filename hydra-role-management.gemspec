@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = Hydra::RoleManagement::VERSION
 
   gem.add_dependency 'cancan'
+  gem.add_dependency 'bootstrap_forms'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rails'
