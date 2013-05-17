@@ -38,7 +38,7 @@ This generator makes the following changes to your application:
   def inject_user_roles_behavior
     file_path = "app/models/#{model_name.underscore}.rb"
     if File.exists?(file_path) 
-      code = "# Connects this user object to Role-management behaviors. " +
+      code = "\n # Connects this user object to Role-management behaviors. " +
         "\n include Hydra::RoleManagement::UserRoles\n"        
       inject_into_file file_path, code, { :after => /include Hydra::User/ }
     else
