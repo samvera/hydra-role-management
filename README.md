@@ -7,3 +7,7 @@ Installing:
 * ```rails generate roles```
 * ```rake db:migrate```
 
+Testing:
+
+* Install a system javascript runtime or uncomment therubyracer in spec/support/Gemfile
+* Run ```rake generate spec``` to generate a test rails app at spec/internal and test it
