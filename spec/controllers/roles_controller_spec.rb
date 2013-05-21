@@ -14,11 +14,23 @@ describe RolesController do
 
 
   describe "with a user who cannot edit users" do
-    it "should redirect to the homepage" do
+    it "should not be able to view role index" do
       lambda { get :index }.should raise_error CanCan::AccessDenied
     end
-    it "should redirect to the homepage" do
+    it "should not be able to view role" do
       lambda { get :show, id: role }.should raise_error CanCan::AccessDenied
+    end
+    it "should not be able to view new role form" do
+      lambda { get :new }.should raise_error CanCan::AccessDenied
+    end
+    it "should not be able to create a role" do
+      lambda { post :create, :role=>{name: 'my_role'}}.should raise_error CanCan::AccessDenied
+    end
+    it "should not be able to update a role" do
+      lambda { put :update, id: role}.should raise_error CanCan::AccessDenied
+    end
+    it "should not be able to remove a role" do
+      lambda { delete :destroy, id: role}.should raise_error CanCan::AccessDenied
     end
   end
 
@@ -51,7 +63,7 @@ describe RolesController do
 
     it "should be able to create a new role" do
       post :create, :role=>{name: 'my_role'} 
-      response.should redirect_to @routes.url_helpers.roles_path
+      response.should redirect_to @routes.url_helpers.edit_role_path(assigns[:role])
       assigns[:role].should_not be_new_record
       assigns[:role].name.should == 'my_role'
     end
@@ -60,6 +72,36 @@ describe RolesController do
       assigns[:role].name.should == 'my role'
       assigns[:role].errors[:name].should == ['Only letters, numbers, hyphens, underscores and periods are allowed']
       response.should be_successful
+    end
+  end
+
+  describe "with a user who can update roles" do
+    before do
+      ability.can :update, Role
+    end
+
+    it "should be able to update a role" do
+      put :update, id: role, :role=>{name: 'my_role'} 
+      response.should redirect_to @routes.url_helpers.edit_role_path(assigns[:role])
+      assigns[:role].should_not be_new_record
+      assigns[:role].name.should == 'my_role'
+    end
+    it "should not update role with an error" do
+      put :update,  id: role, :role=>{name: 'my role'} 
+      assigns[:role].name.should == 'my role'
+      assigns[:role].errors[:name].should == ['Only letters, numbers, hyphens, underscores and periods are allowed']
+      response.should be_successful
+    end
+  end
+
+  describe "with a user who can remove roles" do
+    before do
+      ability.can :destroy, Role
+    end
+
+    it "should be able to destroy a role" do
+      delete :destroy, id: role 
+      response.should redirect_to @routes.url_helpers.roles_path
     end
   end
 
