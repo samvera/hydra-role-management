@@ -13,7 +13,7 @@ describe RolesController do
   end
 
 
-  describe "with a user who cannot edit users" do
+  describe "with a user who cannot edit roles" do
     it "should not be able to view role index" do
       lambda { get :index }.should raise_error CanCan::AccessDenied
     end
@@ -34,7 +34,7 @@ describe RolesController do
     end
   end
 
-  describe "with a user who can edit users" do
+  describe "with a user who can read roles" do
     before do
       ability.can :read, Role
     end
@@ -51,6 +51,15 @@ describe RolesController do
     end
   end
 
+  describe "with a user who can only update role 'foo'" do
+    it "should be redirected to edit" do
+      ability.can :read, Role
+      ability.can :update, Role, id: role.id
+      get :show, id: role
+      response.should redirect_to @routes.url_helpers.edit_role_path(assigns[:role])
+    end
+  end
+  
   describe "with a user who can create roles" do
     before do
       ability.can :create, Role
