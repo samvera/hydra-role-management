@@ -11,7 +11,7 @@ module Hydra
       end
 
       def show
-        redirect_to role_management.edit_role_path(@role) if can? :edit, Role
+        redirect_to role_management.edit_role_path(@role) if can? :edit, @role
       end
 
       def new
