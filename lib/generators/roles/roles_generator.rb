@@ -36,11 +36,16 @@ This generator makes the following changes to your application:
 
   # Add behaviors to the user model
   def inject_user_roles_behavior
+    puts "Add behaviors to the user model"
     file_path = "app/models/#{model_name.underscore}.rb"
-    if File.exists?(file_path) 
-      code = "\n # Connects this user object to Role-management behaviors. " +
-        "\n include Hydra::RoleManagement::UserRoles\n"        
-      inject_into_file file_path, code, { :after => /include Hydra::User/ }
+    if File.exists?(file_path)
+      if File.read(file_path).match(/include Hydra::User/)
+        code = "\n # Connects this user object to Role-management behaviors. " +
+          "\n include Hydra::RoleManagement::UserRoles\n"        
+        inject_into_file file_path, code, { :after => /include Hydra::User/ }
+      else
+        puts "     \e[31mFailure\e[0m  Hydra::User is not included in #{file_path}.  Add 'include Hydra::User' and rerun."
+      end
     else
       puts "     \e[31mFailure\e[0m  hydra-role-management requires a user object. This generators assumes that the model is defined in the file #{file_path}, which does not exist.  If you used a different name, please re-run the generator and provide that name as an argument. Such as \b  rails -g roles client" 
     end    
@@ -56,6 +61,7 @@ This generator makes the following changes to your application:
 
   def rails4_application_controller_patch
     if Rails::VERSION::MAJOR == 4
+      puts "Adding before_filter to application_controller to help Cancan work with Rails 4."
       file_path = "app/controllers/application_controller.rb"
       code = "\n  before_filter do" +
         "\n    resource = controller_path.singularize.gsub('/', '_').to_sym \n" + 
@@ -69,6 +75,7 @@ This generator makes the following changes to your application:
 
   def rails3_attr_accessible
     if !ActionController.const_defined? :StrongParameters
+      puts "Role model will include attr_accessible :name because you are installing this gem in a Rails 3 app."
       copy_file "hydra_role_management_rails3.rb", "config/initializers/hydra_role_management_rails3.rb"
     end
   end
