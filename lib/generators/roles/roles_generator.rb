@@ -51,7 +51,6 @@ This generator makes the following changes to your application:
     end    
   end
 
-
   # The engine routes have to come after the devise routes so that /users/sign_in will work
   def inject_routes
     routing_code = "mount Hydra::RoleManagement::Engine => '/'"
@@ -59,6 +58,8 @@ This generator makes the following changes to your application:
     inject_into_file 'config/routes.rb', "\n  #{routing_code}\n", { :after => sentinel, :verbose => false }
   end
 
+  # As of 7.23.2013 cancan support for Rails 4 is weak and requires monkey-patching.
+  # More information can be found at https://github.com/ryanb/cancan/issues/835
   def rails4_application_controller_patch
     if Rails::VERSION::MAJOR == 4
       puts "Adding before_filter to application_controller to help Cancan work with Rails 4."
@@ -73,6 +74,8 @@ This generator makes the following changes to your application:
     end
   end
 
+  # If this gem is installed under Rails 3, an attr_accessible method is required for the Role model.  This
+  # file will be added to config/initializers and the correct code will be added to the model at runtime.
   def rails3_attr_accessible
     if !ActionController.const_defined? :StrongParameters
       puts "Role model will include attr_accessible :name because you are installing this gem in a Rails 3 app."
