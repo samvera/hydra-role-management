@@ -52,7 +52,25 @@ This generator makes the following changes to your application:
     routing_code = "mount Hydra::RoleManagement::Engine => '/'"
     sentinel = /devise_for :users/
     inject_into_file 'config/routes.rb', "\n  #{routing_code}\n", { :after => sentinel, :verbose => false }
-    
+  end
+
+  def rails4_application_controller_patch
+    if Rails::VERSION::MAJOR == 4
+      file_path = "app/controllers/application_controller.rb"
+      code = "\n  before_filter do" +
+        "\n    resource = controller_path.singularize.gsub('/', '_').to_sym \n" + 
+        '    method = "#{resource}_params"'+ 
+        "\n    params[resource] &&= send(method) if respond_to?(method, true)" + 
+        "\n  end"
+
+      inject_into_file file_path, code, {after: 'class ApplicationController < ActionController::Base'}
+    end
+  end
+
+  def rails3_attr_accessible
+    if !ActionController.const_defined? :StrongParameters
+      copy_file "hydra_role_management_rails3.rb", "config/initializers/hydra_role_management_rails3.rb"
+    end
   end
 
   private  

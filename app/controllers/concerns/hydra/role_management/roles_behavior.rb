@@ -31,7 +31,7 @@ module Hydra
 
       def update
         @role = Role.find(params[:id])
-        if @role.update(role_params)
+        if @role.update_attributes(role_params)
           redirect_to role_management.edit_role_path(@role), notice: 'Role was successfully updated.'
         else
           render action: "edit"
@@ -49,9 +49,12 @@ module Hydra
       private
 
       def role_params
-        params.require(:role).permit(:name)
+        if !ActionController.const_defined? :StrongParameters
+          params[:role]
+        else
+          params.require(:role).permit(:name)
+        end
       end
-
     end
   end
 end
