@@ -22,9 +22,9 @@ desc "Create the test rails app"
 task :generate do
   unless File.exists?('spec/internal/Rakefile')
     puts "Generating rails app"
-    `rails new spec/internal`
-    puts "Copying gemfile"
-    `cp spec/support/Gemfile spec/internal`
+    `rails _ENV["RAILS_VERSION"]_ new spec/internal`
+    puts "Adding hydra gems to gemfile"
+    `cat spec/support/gemfile_stub >> spec/internal/Gemfile`
     puts "Copying generator"
     `cp -r spec/support/lib/generators spec/internal/lib`
 
