@@ -36,7 +36,6 @@ This generator makes the following changes to your application:
 
   # Add behaviors to the user model
   def inject_user_roles_behavior
-    puts "Add behaviors to the user model"
     file_path = "app/models/#{model_name.underscore}.rb"
     if File.exists?(file_path)
       if File.read(file_path).match(/include Hydra::User/)
