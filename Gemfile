@@ -12,10 +12,5 @@ else
 end
 
 gem "rails", rails
-gem 'cancan'
-
-group :development, :test do
-  gem 'bootstrap-forms'
-  gem 'rake'
-  gem 'rspec-rails'
-end
+gem "rake"
+gem 'rspec-rails'
