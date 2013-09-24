@@ -1,4 +1,16 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-# Specify your gem's dependencies in hydra-batch-edit.gemspec
-gemspec
+# Parameterize the Rails version for flexible testing.
+rails_version = ENV["RAILS_VERSION"] || "default"
+rails = case rails_version
+when "master"
+  {:github => "rails/rails"}
+when "default"
+  ">= 3.2.13"
+else
+  "~> #{rails_version}"
+end
+
+gem "rails", rails
+gem "rake"
+gem 'rspec-rails'
