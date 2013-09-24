@@ -12,6 +12,10 @@ describe UserRolesController do
     Role.create(name: 'foo')
   end
 
+  before(:each) do 
+    @routes = Hydra::RoleManagement::Engine.routes
+  end
+
   describe "with a user who cannot edit users" do
     it "should not be able to add a user" do
       lambda { post :create, role_id: role, user_key: 'foo@example.com'}.should raise_error CanCan::AccessDenied

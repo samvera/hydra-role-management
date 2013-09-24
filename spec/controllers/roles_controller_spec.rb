@@ -12,7 +12,10 @@ describe RolesController do
     Role.create(name: 'foo')
   end
 
-
+  before(:each) do 
+    @routes = Hydra::RoleManagement::Engine.routes
+  end
+  
   describe "with a user who cannot edit roles" do
     it "should not be able to view role index" do
       lambda { get :index }.should raise_error CanCan::AccessDenied

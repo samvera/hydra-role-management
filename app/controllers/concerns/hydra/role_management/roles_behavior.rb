@@ -21,8 +21,8 @@ module Hydra
       end
 
       def create
-        @role.name = params[:role][:name]
-        if (@role.save)
+        @role = Role.new(role_params)
+        if @role.save
           redirect_to role_management.edit_role_path(@role), notice: 'Role was successfully created.'
         else
           render action: "new"
@@ -30,8 +30,8 @@ module Hydra
       end
 
       def update
-        @role.name = params[:role][:name]
-        if (@role.save)
+        @role = Role.find(params[:id])
+        if @role.update_attributes(role_params)
           redirect_to role_management.edit_role_path(@role), notice: 'Role was successfully updated.'
         else
           render action: "edit"
@@ -46,6 +46,15 @@ module Hydra
         end
       end
 
+      private
+
+      def role_params
+        if !ActionController.const_defined? :StrongParameters
+          params[:role]
+        else
+          params.require(:role).permit(:name)
+        end
+      end
     end
   end
 end

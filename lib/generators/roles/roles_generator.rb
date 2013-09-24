@@ -37,22 +37,49 @@ This generator makes the following changes to your application:
   # Add behaviors to the user model
   def inject_user_roles_behavior
     file_path = "app/models/#{model_name.underscore}.rb"
-    if File.exists?(file_path) 
-      code = "\n # Connects this user object to Role-management behaviors. " +
-        "\n include Hydra::RoleManagement::UserRoles\n"        
-      inject_into_file file_path, code, { :after => /include Hydra::User/ }
+    if File.exists?(file_path)
+      if File.read(file_path).match(/include Hydra::User/)
+        code = "\n # Connects this user object to Role-management behaviors. " +
+          "\n include Hydra::RoleManagement::UserRoles\n"        
+        inject_into_file file_path, code, { :after => /include Hydra::User/ }
+      else
+        puts "     \e[31mFailure\e[0m  Hydra::User is not included in #{file_path}.  Add 'include Hydra::User' and rerun."
+      end
     else
       puts "     \e[31mFailure\e[0m  hydra-role-management requires a user object. This generators assumes that the model is defined in the file #{file_path}, which does not exist.  If you used a different name, please re-run the generator and provide that name as an argument. Such as \b  rails -g roles client" 
     end    
   end
-
 
   # The engine routes have to come after the devise routes so that /users/sign_in will work
   def inject_routes
     routing_code = "mount Hydra::RoleManagement::Engine => '/'"
     sentinel = /devise_for :users/
     inject_into_file 'config/routes.rb', "\n  #{routing_code}\n", { :after => sentinel, :verbose => false }
-    
+  end
+
+  # As of 7.23.2013 cancan support for Rails 4 is weak and requires monkey-patching.
+  # More information can be found at https://github.com/ryanb/cancan/issues/835
+  def rails4_application_controller_patch
+    if Rails::VERSION::MAJOR == 4
+      puts "Adding before_filter to application_controller to help Cancan work with Rails 4."
+      file_path = "app/controllers/application_controller.rb"
+      code = "\n  before_filter do" +
+        "\n    resource = controller_path.singularize.gsub('/', '_').to_sym \n" + 
+        '    method = "#{resource}_params"'+ 
+        "\n    params[resource] &&= send(method) if respond_to?(method, true)" + 
+        "\n  end"
+
+      inject_into_file file_path, code, {after: 'class ApplicationController < ActionController::Base'}
+    end
+  end
+
+  # If this gem is installed under Rails 3, an attr_accessible method is required for the Role model.  This
+  # file will be added to config/initializers and the correct code will be added to the model at runtime.
+  def rails3_attr_accessible
+    if !ActionController.const_defined? :StrongParameters
+      puts "Role model will include attr_accessible :name because you are installing this gem in a Rails 3 app."
+      copy_file "hydra_role_management_rails3.rb", "config/initializers/hydra_role_management_rails3.rb"
+    end
   end
 
   private  
