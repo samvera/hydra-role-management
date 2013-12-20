@@ -8,10 +8,18 @@ module Hydra
 
       def groups
         g = roles.map(&:name)
-        g += ['registered'] unless new_record? || guest?
+        g += ['registered'] unless new_record? || guest? 
         g
       end
 
+      def guest?
+        if defined?(DeviseGuests)
+          read_attribute :guest
+        else
+          false
+        end
+      end
+      
 
       def admin?
         roles.where(name: 'admin').exists?

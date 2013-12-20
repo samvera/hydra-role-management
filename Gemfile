@@ -1,16 +1,12 @@
 source "https://rubygems.org"
 
-# Parameterize the Rails version for flexible testing.
-rails_version = ENV["RAILS_VERSION"] || "default"
-rails = case rails_version
-when "master"
-  {:github => "rails/rails"}
-when "default"
-  ">= 3.2.13"
-else
-  "~> #{rails_version}"
+gemspec
+
+group :test do
+  gem 'devise'
+  gem 'rspec-rails', '~> 2.14'
 end
 
-gem "rails", rails
-gem "rake"
-gem 'rspec-rails'
+if File.exists?('spec/test_app_templates/Gemfile.extra')
+  eval File.read('spec/test_app_templates/Gemfile.extra'), nil, 'spec/test_app_templates/Gemfile.extra'
+end

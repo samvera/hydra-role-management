@@ -1,13 +1,10 @@
 require 'spec_helper'
 
 describe "Routes for role_management" do
+  routes {
+    Hydra::RoleManagement::Engine.routes 
+  }
   context "default" do
-    before(:each) do
-      @routes = Hydra::RoleManagement::Engine.routes 
-      # so we have to do this instead:
-      # engine routes broke in rspec rails 2.12.1, so we had to add this:
-      assertion_instance.instance_variable_set(:@routes, @routes)
-    end
     it "should route index" do 
       { :get => '/roles' }.should route_to( :controller => "roles", :action => "index")
     end
