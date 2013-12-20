@@ -1,4 +1,0 @@
-gem 'blacklight'
-gem 'hydra-head'
-gem 'hydra-role-management', :path=>'../../'
-gem 'bootstrap-forms'

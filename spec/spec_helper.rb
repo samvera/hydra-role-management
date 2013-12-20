@@ -1,10 +1,11 @@
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+require "bundler/setup"
 ENV["RAILS_ENV"] ||= 'test'
 
-require File.expand_path("config/environment", ENV['RAILS_ROOT'] || File.expand_path("../internal", __FILE__))
-require 'rspec/rails'
 
+require 'engine_cart'
+EngineCart.load_application!
+require 'rspec/rails'
+require 'hydra/role_management'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true

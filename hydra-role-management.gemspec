@@ -15,9 +15,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Hydra::RoleManagement::VERSION
 
-  gem.add_dependency 'cancan'
   gem.add_dependency 'bootstrap_forms'
+  gem.add_dependency "hydra-head", "~> 6.4.0"
   gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rails'
   gem.add_development_dependency 'rspec-rails'
+  gem.add_development_dependency 'engine_cart'
 end

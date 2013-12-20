@@ -1,3 +1,5 @@
+require 'hydra/head'
+
 module Hydra
   module RoleManagement
     class Engine < ::Rails::Engine
