@@ -9,10 +9,9 @@ class TestAppGenerator < Rails::Generators::Base
     generate 'blacklight', '--devise'
   end
 
-  def run_hydra_head_generator
-    say_status("warning", "GENERATING HH", :yellow)       
-
-    generate 'hydra:head', '-f'
+  def run_cancan_generator
+    say_status("warning", "GENERATING Ability", :yellow)       
+    generate 'cancan:ability'
   end
 
   def run_roles_generator

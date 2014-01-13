@@ -1,3 +1,9 @@
-platforms :ruby do
-  gem 'sqlite3'
+gem 'blacklight'
+gem 'sqlite3'
+gem 'cancan'
+
+group :test do
+  gem 'devise'
+  gem 'rspec-rails', '~> 2.14'
 end
+
