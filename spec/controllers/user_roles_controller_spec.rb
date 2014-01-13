@@ -34,7 +34,7 @@ describe UserRolesController do
         ability.can :add_user, Role
       end
       it "should not be able to add a user that doesn't exist" do
-        User.should_receive(:find_by_user_key).with('foo@example.com').and_return(nil)
+        User.should_receive(:find_by_email).with('foo@example.com').and_return(nil)
         post :create, role_id: role, user_key: 'foo@example.com'
         flash[:error].should == "Unable to find the user foo@example.com"
       end

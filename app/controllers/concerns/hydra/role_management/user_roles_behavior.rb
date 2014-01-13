@@ -9,7 +9,7 @@ module Hydra
 
       def create
         authorize! :add_user, @role
-        u = ::User.find_by_user_key(params[:user_key])
+        u = find_user
         if u
           u.roles << @role
           u.save!
@@ -23,6 +23,16 @@ module Hydra
         authorize! :remove_user, @role
         @role.users.delete(::User.find(params[:id]))
         redirect_to role_management.role_path(@role)
+      end
+
+      protected
+
+      def find_user
+        User.send("find_by_#{find_column}".to_sym, params[:user_key])
+      end
+
+      def find_column
+        Devise.authentication_keys.first
       end
     end
   end

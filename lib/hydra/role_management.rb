@@ -1,5 +1,4 @@
-require 'hydra/head'
-
+require 'cancan'
 module Hydra
   module RoleManagement
     class Engine < ::Rails::Engine

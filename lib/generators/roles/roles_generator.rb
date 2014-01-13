@@ -38,10 +38,15 @@ This generator makes the following changes to your application:
   def inject_user_roles_behavior
     file_path = "app/models/#{model_name.underscore}.rb"
     if File.exists?(file_path)
-      if File.read(file_path).match(/include Hydra::User/)
+      place_marker = if File.read(file_path).match(/include Hydra::User/)
+        /include Hydra::User/
+      elsif File.read(file_path).match(/include Blacklight::User/)
+       /include Blacklight::User/ 
+      end
+      if place_marker 
         code = "\n # Connects this user object to Role-management behaviors. " +
           "\n include Hydra::RoleManagement::UserRoles\n"        
-        inject_into_file file_path, code, { :after => /include Hydra::User/ }
+        inject_into_file file_path, code, { :after => place_marker }
       else
         puts "     \e[31mFailure\e[0m  Hydra::User is not included in #{file_path}.  Add 'include Hydra::User' and rerun."
       end
