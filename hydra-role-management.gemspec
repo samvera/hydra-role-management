@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'bootstrap_forms'
   gem.add_dependency 'blacklight'
-  gem.add_dependency 'cancan'
+  gem.add_dependency 'cancancan'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec-rails'
   gem.add_development_dependency 'engine_cart'
