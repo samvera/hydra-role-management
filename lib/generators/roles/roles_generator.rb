@@ -91,8 +91,8 @@ This generator makes the following changes to your application:
   
   def better_migration_template (file)
     begin
-      migration_template "migrations/#{file}", "db/migrate/#{file}"
       sleep 1 # ensure scripts have different time stamps
+      migration_template "migrations/#{file}", "db/migrate/#{file}"
     rescue
       puts "  \e[1m\e[34mMigrations\e[0m  " + $!.message
     end
