@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Hydra::RoleManagement::VERSION
 
-  gem.add_dependency 'bootstrap_forms'
+  gem.add_dependency 'bootstrap_form'
   gem.add_dependency 'blacklight'
   gem.add_dependency 'cancancan'
   gem.add_development_dependency 'rake'

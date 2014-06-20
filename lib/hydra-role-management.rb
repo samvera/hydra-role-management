@@ -1,5 +1,5 @@
 require "hydra/role_management"
-require 'bootstrap_forms'
+require 'bootstrap_form'
 
 module Hydra
   module RoleManagement
