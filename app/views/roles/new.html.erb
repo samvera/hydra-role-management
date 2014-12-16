@@ -1,5 +1,4 @@
 <%= bootstrap_form_for @role, :url=>role_management.roles_path do |f| %>
   <%= f.text_field :name, :label=> 'Role name' %>
-  <%= f.actions %>
+  <%= f.submit 'Create' %>
 <% end %>
-

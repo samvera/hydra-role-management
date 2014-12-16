@@ -10,10 +10,8 @@
   <% end %>
 </ul>
 <h3>Add a new account:</h3>
-<%= bootstrap_form_tag role_management.role_users_path(@role) do %>
-  <%= bootstrap_text_field_tag 'user_key', '', :label=>'User' %>
-  <%= bootstrap_actions do %>
-    <%= bootstrap_submit_tag "Add" %>
-    <%= bootstrap_cancel_tag %>
-  <% end %>
+<%= bootstrap_form_tag url: role_management.role_users_path(@role) do |f| %>
+  <%= f.text_field 'user_key', :label=>'User' %>
+  <%= f.submit "Add" %>
+  <%= f.submit "Cancel" %>
 <% end %>
