@@ -75,7 +75,7 @@ describe RolesController do
 
     it "should be able to create a new role" do
       post :create, :role=>{name: 'my_role'} 
-      response.should redirect_to @routes.url_helpers.roles_path
+      response.should redirect_to @routes.url_helpers.edit_role_path(assigns[:role])
       assigns[:role].should_not be_new_record
       assigns[:role].name.should == 'my_role'
     end
@@ -94,7 +94,7 @@ describe RolesController do
 
     it "should be able to update a role" do
       put :update, id: role, :role=>{name: 'my_role'} 
-      response.should redirect_to @routes.url_helpers.roles_path
+      response.should redirect_to @routes.url_helpers.edit_role_path(assigns[:role])
       assigns[:role].should_not be_new_record
       assigns[:role].name.should == 'my_role'
     end

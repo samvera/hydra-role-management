@@ -23,7 +23,7 @@ module Hydra
       def create
         @role = Role.new(role_params)
         if @role.save
-          redirect_to role_management.roles_path, notice: 'Role was successfully created.'
+          redirect_to role_management.edit_role_path(@role), notice: 'Role was successfully created.'
         else
           render action: "new"
         end
@@ -32,7 +32,7 @@ module Hydra
       def update
         @role = Role.find(params[:id])
         if @role.update_attributes(role_params)
-          redirect_to role_management.roles_path, notice: 'Role was successfully updated.'
+          redirect_to role_management.edit_role_path(@role), notice: 'Role was successfully updated.'
         else
           render action: "edit"
         end
