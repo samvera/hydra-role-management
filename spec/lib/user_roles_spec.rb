@@ -8,7 +8,7 @@ describe Hydra::RoleManagement::UserRoles do
     end
 
     it "should have admin?" do
-      subject.should_not be_admin
+      expect(subject).not_to be_admin
     end
 
     describe "with roles" do

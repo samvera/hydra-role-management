@@ -6,19 +6,19 @@ describe "Routes for role_management" do
   }
   context "default" do
     it "should route index" do 
-      { :get => '/roles' }.should route_to( :controller => "roles", :action => "index")
+      expect(:get => '/roles').to route_to( :controller => "roles", :action => "index")
     end
     it "should create roles" do 
-      { :post => '/roles' }.should route_to( :controller => "roles", :action => "create")
+      expect(:post => '/roles').to route_to( :controller => "roles", :action => "create")
     end
     it "should show roles" do 
-      { :get => '/roles/7' }.should route_to( :controller => "roles", :action => "show", :id => '7')
+      expect(:get => '/roles/7').to route_to( :controller => "roles", :action => "show", :id => '7')
     end
     it "should add users" do 
-      { :post => '/roles/7/users' }.should route_to( :controller => "user_roles", :role_id=>'7', :action => "create")
+      expect(:post => '/roles/7/users').to route_to( :controller => "user_roles", :role_id=>'7', :action => "create")
     end
     it "should remove users" do 
-      { :delete => '/roles/7/users/5' }.should route_to( :controller => "user_roles", :role_id=>'7', :id=>'5', :action => "destroy")
+      expect(:delete => '/roles/7/users/5').to route_to( :controller => "user_roles", :role_id=>'7', :id=>'5', :action => "destroy")
     end
   end
 
@@ -48,19 +48,19 @@ describe "Routes for role_management" do
     end
 
     it "should route index" do 
-      { :get => '/admin/groups' }.should route_to( :controller => "roles", :action => "index")
+      expect(:get => '/admin/groups').to route_to( :controller => "roles", :action => "index")
     end
     it "should create roles" do 
-      { :post => '/admin/groups' }.should route_to( :controller => "roles", :action => "create")
+      expect(:post => '/admin/groups').to route_to( :controller => "roles", :action => "create")
     end
     it "should show roles" do 
-      { :get => '/admin/groups/7' }.should route_to( :controller => "roles", :action => "show", :id => '7')
+      expect(:get => '/admin/groups/7').to route_to( :controller => "roles", :action => "show", :id => '7')
     end
     it "should add users" do 
-      { :post => '/admin/groups/7/users' }.should route_to( :controller => "user_roles", :role_id=>'7', :action => "create")
+      expect(:post => '/admin/groups/7/users').to route_to( :controller => "user_roles", :role_id=>'7', :action => "create")
     end
     it "should remove users" do 
-      { :delete => '/admin/groups/7/users/5' }.should route_to( :controller => "user_roles", :role_id=>'7', :id=>'5', :action => "destroy")
+      expect(:delete => '/admin/groups/7/users/5').to route_to( :controller => "user_roles", :role_id=>'7', :id=>'5', :action => "destroy")
     end
   end
 end
