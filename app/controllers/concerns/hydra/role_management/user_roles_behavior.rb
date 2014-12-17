@@ -28,7 +28,7 @@ module Hydra
       protected
 
       def find_user
-        User.send("find_by_#{find_column}".to_sym, params[:user_key])
+        ::User.send("find_by_#{find_column}".to_sym, params[:user_key])
       end
 
       def find_column

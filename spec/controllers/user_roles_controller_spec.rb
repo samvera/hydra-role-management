@@ -4,7 +4,8 @@ describe UserRolesController do
   let(:ability) do
     ability = Object.new
     ability.extend(CanCan::Ability)
-    controller.stub(:current_ability).and_return(ability)
+    allow(controller).to receive(:current_ability).and_return(ability)
+
     ability
   end
 
@@ -18,10 +19,10 @@ describe UserRolesController do
 
   describe "with a user who cannot edit users" do
     it "should not be able to add a user" do
-      lambda { post :create, role_id: role, user_key: 'foo@example.com'}.should raise_error CanCan::AccessDenied
+      expect { post :create, role_id: role, user_key: 'foo@example.com'}.to raise_error CanCan::AccessDenied
     end
     it "should not be able to remove a user" do
-      lambda { delete :destroy, role_id: role, id: 7}.should raise_error CanCan::AccessDenied
+      expect { delete :destroy, role_id: role, id: 7}.to raise_error CanCan::AccessDenied
     end
   end
 
@@ -34,14 +35,14 @@ describe UserRolesController do
         ability.can :add_user, Role
       end
       it "should not be able to add a user that doesn't exist" do
-        User.should_receive(:find_by_email).with('foo@example.com').and_return(nil)
+        expect(User).to receive(:find_by_email).with('foo@example.com').and_return(nil)
         post :create, role_id: role, user_key: 'foo@example.com'
-        flash[:error].should == "Unable to find the user foo@example.com"
+        expect(flash[:error]).to eq "Unable to find the user foo@example.com"
       end
       it "should be able to add a user" do
         u = User.create!(email: 'foo@example.com', password: 'password', password_confirmation: 'password')
         post :create, role_id: role, user_key: 'foo@example.com'
-        role.reload.users.should == [u]
+        expect(role.reload.users).to eq [u]
       end
     end
     describe "removing users" do
@@ -55,9 +56,9 @@ describe UserRolesController do
         u
       end
       it "should be able to remove a user" do
-        user.roles.should == [role]
+        expect(user.roles).to eq [role]
         delete :destroy, role_id: role, id: user.id
-        role.reload.users.should == []
+        expect(role.reload.users).to eq []
       end
     end
   end
