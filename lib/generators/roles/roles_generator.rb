@@ -1,19 +1,19 @@
 # -*- encoding : utf-8 -*-
 require 'rails/generators'
-require 'rails/generators/migration'     
+require 'rails/generators/migration'
 
 class RolesGenerator < Rails::Generators::Base
   include Rails::Generators::Migration
 
   source_root File.expand_path('../templates', __FILE__)
-  
+
   argument     :model_name, :type => :string , :default => "user"
   desc """
 This generator makes the following changes to your application:
  1. Creates several database migrations if they do not exist in /db/migrate
  2. Adds user behavior to the user model
  2. Adds routes
-       """ 
+       """
 
   # Implement the required interface for Rails::Generators::Migration.
   # taken from http://github.com/rails/rails/blob/master/activerecord/lib/generators/active_record.rb
@@ -41,18 +41,18 @@ This generator makes the following changes to your application:
       place_marker = if File.read(file_path).match(/include Hydra::User/)
         /include Hydra::User/
       elsif File.read(file_path).match(/include Blacklight::User/)
-       /include Blacklight::User/ 
+       /include Blacklight::User/
       end
-      if place_marker 
-        code = "\n # Connects this user object to Role-management behaviors. " +
-          "\n include Hydra::RoleManagement::UserRoles\n"        
+      if place_marker
+        code = "\n  # Connects this user object to Role-management behaviors.\n" +
+          "  include Hydra::RoleManagement::UserRoles\n\n"
         inject_into_file file_path, code, { :after => place_marker }
       else
         puts "     \e[31mFailure\e[0m  Hydra::User is not included in #{file_path}.  Add 'include Hydra::User' and rerun."
       end
     else
-      puts "     \e[31mFailure\e[0m  hydra-role-management requires a user object. This generators assumes that the model is defined in the file #{file_path}, which does not exist.  If you used a different name, please re-run the generator and provide that name as an argument. Such as \b  rails -g roles client" 
-    end    
+      puts "     \e[31mFailure\e[0m  hydra-role-management requires a user object. This generators assumes that the model is defined in the file #{file_path}, which does not exist.  If you used a different name, please re-run the generator and provide that name as an argument. Such as \b  rails -g roles client"
+    end
   end
 
   # The engine routes have to come after the devise routes so that /users/sign_in will work
@@ -69,9 +69,9 @@ This generator makes the following changes to your application:
       puts "Adding before_filter to application_controller to help Cancan work with Rails 4."
       file_path = "app/controllers/application_controller.rb"
       code = "\n  before_filter do" +
-        "\n    resource = controller_path.singularize.gsub('/', '_').to_sym \n" + 
-        '    method = "#{resource}_params"'+ 
-        "\n    params[resource] &&= send(method) if respond_to?(method, true)" + 
+        "\n    resource = controller_path.singularize.gsub('/', '_').to_sym\n" +
+        '    method = "#{resource}_params"'+
+        "\n    params[resource] &&= send(method) if respond_to?(method, true)" +
         "\n  end"
 
       inject_into_file file_path, code, {after: 'class ApplicationController < ActionController::Base'}
@@ -87,8 +87,8 @@ This generator makes the following changes to your application:
     end
   end
 
-  private  
-  
+  private
+
   def better_migration_template (file)
     begin
       sleep 1 # ensure scripts have different time stamps
@@ -98,6 +98,4 @@ This generator makes the following changes to your application:
     end
   end
 
-end  
-
-
+end
