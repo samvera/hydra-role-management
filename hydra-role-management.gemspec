@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "hydra-role-management"
   gem.require_paths = ["lib"]
   gem.version       = Hydra::RoleManagement::VERSION
+  gem.license       = 'Apache 2.0'
 
   gem.add_dependency 'bootstrap_form'
   gem.add_dependency 'blacklight'
