@@ -24,4 +24,5 @@ Given the need to support both Rails 3 and 4, the test suite has been parameteri
 * Set Rails version you want to test against.  For example:
 	* ```RAILS_VERSION=3.2.13``` or ```RAILS_VERSION=4.0.0```
 * Ensure that the correct version of Rails is installed:  ```bundle update```
-* Build test app and run tests: ```bundle exec rake spec```
+* Build test app: ```bundle exec engine_cart:generate```
+* And run tests: ```bundle exec rake spec```

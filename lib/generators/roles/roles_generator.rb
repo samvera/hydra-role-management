@@ -62,22 +62,6 @@ This generator makes the following changes to your application:
     inject_into_file 'config/routes.rb', "\n  #{routing_code}\n", { :after => sentinel, :verbose => false }
   end
 
-  # As of 7.23.2013 cancan support for Rails 4 is weak and requires monkey-patching.
-  # More information can be found at https://github.com/ryanb/cancan/issues/835
-  def rails4_application_controller_patch
-    if Rails::VERSION::MAJOR == 4
-      puts "Adding before_filter to application_controller to help Cancan work with Rails 4."
-      file_path = "app/controllers/application_controller.rb"
-      code = "\n  before_filter do" +
-        "\n    resource = controller_path.singularize.gsub('/', '_').to_sym\n" +
-        '    method = "#{resource}_params"'+
-        "\n    params[resource] &&= send(method) if respond_to?(method, true)" +
-        "\n  end"
-
-      inject_into_file file_path, code, {after: 'class ApplicationController < ActionController::Base'}
-    end
-  end
-
   # If this gem is installed under Rails 3, an attr_accessible method is required for the Role model.  This
   # file will be added to config/initializers and the correct code will be added to the model at runtime.
   def rails3_attr_accessible
