@@ -12,7 +12,7 @@ This gem supports both Rails 3 and 4.
 ```
   # app/models/ability.rb
   if current_user.admin?
-    can [:create, :show, :add_user, :remove_user, :index], Role
+    can [:create, :show, :add_user, :remove_user, :index, :edit, :update, :destroy], Role
   end
 ```
 
