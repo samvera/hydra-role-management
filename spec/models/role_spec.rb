@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Role do
   it "should require a name" do
     expect(subject).not_to be_valid

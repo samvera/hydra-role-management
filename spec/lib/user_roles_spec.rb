@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Hydra::RoleManagement::UserRoles do
   let(:librarian) { Role.create!(name: 'librarian') }
   describe "a real user" do
