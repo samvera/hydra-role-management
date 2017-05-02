@@ -1,23 +1,21 @@
-require 'spec_helper'
-
 describe "Routes for role_management" do
   routes {
-    Hydra::RoleManagement::Engine.routes 
+    Hydra::RoleManagement::Engine.routes
   }
   context "default" do
-    it "should route index" do 
+    it "should route index" do
       expect(:get => '/roles').to route_to( :controller => "roles", :action => "index")
     end
-    it "should create roles" do 
+    it "should create roles" do
       expect(:post => '/roles').to route_to( :controller => "roles", :action => "create")
     end
-    it "should show roles" do 
+    it "should show roles" do
       expect(:get => '/roles/7').to route_to( :controller => "roles", :action => "show", :id => '7')
     end
-    it "should add users" do 
+    it "should add users" do
       expect(:post => '/roles/7/users').to route_to( :controller => "user_roles", :role_id=>'7', :action => "create")
     end
-    it "should remove users" do 
+    it "should remove users" do
       expect(:delete => '/roles/7/users/5').to route_to( :controller => "user_roles", :role_id=>'7', :id=>'5', :action => "destroy")
     end
   end
@@ -36,7 +34,7 @@ describe "Routes for role_management" do
     end
 
     before(:each) do
-      @routes = Hydra::RoleManagement::Engine.routes 
+      @routes = Hydra::RoleManagement::Engine.routes
       # so we have to do this instead:
       # engine routes broke in rspec rails 2.12.1, so we had to add this:
       assertion_instance.instance_variable_set(:@routes, @routes)
@@ -47,19 +45,19 @@ describe "Routes for role_management" do
       Rails.application.reload_routes!
     end
 
-    it "should route index" do 
+    it "should route index" do
       expect(:get => '/admin/groups').to route_to( :controller => "roles", :action => "index")
     end
-    it "should create roles" do 
+    it "should create roles" do
       expect(:post => '/admin/groups').to route_to( :controller => "roles", :action => "create")
     end
-    it "should show roles" do 
+    it "should show roles" do
       expect(:get => '/admin/groups/7').to route_to( :controller => "roles", :action => "show", :id => '7')
     end
-    it "should add users" do 
+    it "should add users" do
       expect(:post => '/admin/groups/7/users').to route_to( :controller => "user_roles", :role_id=>'7', :action => "create")
     end
-    it "should remove users" do 
+    it "should remove users" do
       expect(:delete => '/admin/groups/7/users/5').to route_to( :controller => "user_roles", :role_id=>'7', :id=>'5', :action => "destroy")
     end
   end

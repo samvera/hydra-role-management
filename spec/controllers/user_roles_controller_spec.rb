@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe UserRolesController do
   let(:ability) do
     ability = Object.new
@@ -13,16 +11,16 @@ describe UserRolesController do
     Role.create(name: 'foo')
   end
 
-  before(:each) do 
+  before(:each) do
     @routes = Hydra::RoleManagement::Engine.routes
   end
 
   describe "with a user who cannot edit users" do
     it "should not be able to add a user" do
-      expect { post :create, role_id: role, user_key: 'foo@example.com'}.to raise_error CanCan::AccessDenied
+      expect { post :create, params: { role_id: role, user_key: 'foo@example.com' } }.to raise_error CanCan::AccessDenied
     end
     it "should not be able to remove a user" do
-      expect { delete :destroy, role_id: role, id: 7}.to raise_error CanCan::AccessDenied
+      expect { delete :destroy, params: { role_id: role, id: 7 } }.to raise_error CanCan::AccessDenied
     end
   end
 
@@ -36,12 +34,12 @@ describe UserRolesController do
       end
       it "should not be able to add a user that doesn't exist" do
         expect(User).to receive(:find_by_email).with('foo@example.com').and_return(nil)
-        post :create, role_id: role, user_key: 'foo@example.com'
+        post :create, params: { role_id: role, user_key: 'foo@example.com' }
         expect(flash[:error]).to eq "Unable to find the user foo@example.com"
       end
       it "should be able to add a user" do
         u = User.create!(email: 'foo@example.com', password: 'password', password_confirmation: 'password')
-        post :create, role_id: role, user_key: 'foo@example.com'
+        post :create, params: { role_id: role, user_key: 'foo@example.com' }
         expect(role.reload.users).to eq [u]
       end
     end
@@ -57,10 +55,9 @@ describe UserRolesController do
       end
       it "should be able to remove a user" do
         expect(user.roles).to eq [role]
-        delete :destroy, role_id: role, id: user.id
+        delete :destroy, params: { role_id: role, id: user.id }
         expect(role.reload.users).to eq []
       end
     end
   end
 end
-

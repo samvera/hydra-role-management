@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe RolesController do
   let(:ability) do
     ability = Object.new
@@ -12,28 +10,28 @@ describe RolesController do
     Role.create(name: 'foo')
   end
 
-  before(:each) do 
+  before(:each) do
     @routes = Hydra::RoleManagement::Engine.routes
   end
-  
+
   describe "with a user who cannot edit roles" do
     it "should not be able to view role index" do
-      expect {get :index}.to raise_error CanCan::AccessDenied
+      expect { get :index, params: {} }.to raise_error CanCan::AccessDenied
     end
     it "should not be able to view role" do
-      expect {get :show, id: role}.to raise_error CanCan::AccessDenied
+      expect { get :show, params: { id: role } }.to raise_error CanCan::AccessDenied
     end
     it "should not be able to view new role form" do
       expect { get :new }.to raise_error CanCan::AccessDenied
     end
     it "should not be able to create a role" do
-      expect { post :create, :role=>{name: 'my_role'}}.to raise_error CanCan::AccessDenied
+      expect { post :create, params: { role: { name: 'my_role' } } }.to raise_error CanCan::AccessDenied
     end
     it "should not be able to update a role" do
-      expect { put :update, id: role}.to raise_error CanCan::AccessDenied
+      expect { put :update, params: { id: role } }.to raise_error CanCan::AccessDenied
     end
     it "should not be able to remove a role" do
-      expect { delete :destroy, id: role}.to raise_error CanCan::AccessDenied
+      expect { delete :destroy, params: { id: role } }.to raise_error CanCan::AccessDenied
     end
   end
 
@@ -48,7 +46,7 @@ describe RolesController do
     end
 
     it "should be able to see a single role" do
-      get :show, id: role
+      get :show, params: { id: role }
       expect(response).to be_successful
       expect(assigns[:role]).to eq role
     end
@@ -58,11 +56,11 @@ describe RolesController do
     it "should be redirected to edit" do
       ability.can :read, Role
       ability.can :update, Role, id: role.id
-      get :show, id: role
+      get :show, params: { id: role }
       expect(response).to redirect_to @routes.url_helpers.edit_role_path(assigns[:role])
     end
   end
-  
+
   describe "with a user who can create roles" do
     before do
       ability.can :create, Role
@@ -74,13 +72,13 @@ describe RolesController do
     end
 
     it "should be able to create a new role" do
-      post :create, :role=>{name: 'my_role'} 
+      post :create, params: { role: { name: 'my_role' } }
       expect(response).to redirect_to @routes.url_helpers.edit_role_path(assigns[:role])
       expect(assigns[:role]).not_to be_new_record
       expect(assigns[:role].name).to eq 'my_role'
     end
     it "should not create role with an error" do
-      post :create, :role=>{name: 'my role'} 
+      post :create, params: { role: { name: 'my role' } }
       expect(assigns[:role].name).to eq 'my role'
       expect(assigns[:role].errors[:name]).to eq ['Only letters, numbers, hyphens, underscores and periods are allowed']
       expect(response).to be_successful
@@ -93,13 +91,13 @@ describe RolesController do
     end
 
     it "should be able to update a role" do
-      put :update, id: role, :role=>{name: 'my_role'} 
+      put :update, params: { id: role, role: { name: 'my_role' } }
       expect(response).to redirect_to @routes.url_helpers.edit_role_path(assigns[:role])
       expect(assigns[:role]).not_to be_new_record
       expect(assigns[:role].name).to eq 'my_role'
     end
     it "should not update role with an error" do
-      put :update,  id: role, :role=>{name: 'my role'} 
+      put :update,  params: { id: role, role: { name: 'my role' } }
       expect(assigns[:role].name).to eq 'my role'
       expect(assigns[:role].errors[:name]).to eq ['Only letters, numbers, hyphens, underscores and periods are allowed']
       expect(response).to be_successful
@@ -112,9 +110,8 @@ describe RolesController do
     end
 
     it "should be able to destroy a role" do
-      delete :destroy, id: role 
+      delete :destroy, params: { id: role }
       expect(response).to redirect_to @routes.url_helpers.roles_path
     end
   end
-
 end

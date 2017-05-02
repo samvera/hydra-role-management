@@ -6,3 +6,5 @@ pkg/
 
 .ruby-version
 .ruby-gemset
+
+.internal_test_app
