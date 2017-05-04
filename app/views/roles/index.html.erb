@@ -1,4 +1,4 @@
-<h2>Roles</h2>
+<h2><%= t('role-management.index.title') %></h2>
 <ul>
   <% @roles.each do |role| %>
     <li><%=link_to role.name, role_management.role_path(role) %></li>
@@ -6,6 +6,6 @@
 </ul>
 
 <% if can? :create, Role %>
-  <%= button_to "Create a new role", role_management.new_role_path, method: :get, class: 'btn btn-primary' %>
+  <%= button_to t('role-management.index.create'), role_management.new_role_path, method: :get, class: 'btn btn-primary' %>
 <% end %>
 
