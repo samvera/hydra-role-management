@@ -24,5 +24,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec-its'
   gem.add_development_dependency 'rails-controller-testing', '~> 0'
   gem.add_development_dependency 'engine_cart', '~> 1.0'
-  gem.add_development_dependency 'i18n-tasks'
 end
