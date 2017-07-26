@@ -22,10 +22,4 @@ class TestAppGenerator < Rails::Generators::Base
     say_status("warning", "GENERATING ROLES", :yellow)
     generate 'roles', '-f'
   end
-
-  def run_i18n_generator
-    say_status("warning", "GENERATING I18N CONFIG", :yellow)
-    generate 'i18n'
-  end
-
 end
