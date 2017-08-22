@@ -1,4 +1,4 @@
-class UserRoles < ActiveRecord::Migration
+class UserRoles < ActiveRecord::Migration<%= '[5.0]' if Rails::VERSION::MAJOR >= 5 %>
   def up
     create_table :roles do |t|
       t.string :name
