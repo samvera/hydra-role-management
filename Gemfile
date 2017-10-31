@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem 'coveralls', require: false
+
 gemspec
 
 # BEGIN ENGINE_CART BLOCK
