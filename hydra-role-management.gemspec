@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["justin@curationexperts.com"]
   gem.description   = %q{Rails engine to do user roles in an RDBMS for hydra-head}
   gem.summary       = %q{Rails engine to do user roles in an RDBMS for hydra-head}
-  gem.homepage      = "https://github.com/projecthydra/hydra-role-management"
+  gem.homepage      = "https://github.com/samvera/hydra-role-management"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

@@ -5,7 +5,7 @@
 
 An engine gem to provide a RDBMS backed list of roles and their associated user.  This replaces the hydra default role mapper.
 
-This gem supports Rails 3, 4, and 5.
+As of version 1.0, this gem only supports Rails 5.
 
 ## Installing:
 
@@ -22,12 +22,11 @@ This gem supports Rails 3, 4, and 5.
 ```
 
 ## Testing:
-Given the need to support Rails 3, 4 and 5, the test suite has been parameterized to test against any version of Rails.
 
 * Install a system javascript runtime or uncomment therubyracer in spec/support/Gemfile
 * Ensure that the testing app does not exist: ```bundle exec rake clean```
 * Set Rails version you want to test against.  For example:
-	* ```RAILS_VERSION=3.2.13``` or ```RAILS_VERSION=4.0.0``` or ```RAILS_VERSION=5.0.2```
+	* ```export RAILS_VERSION=5.1.4```
 * Ensure that the correct version of Rails is installed:  ```bundle update```
-* Build test app: ```bundle exec engine_cart:generate```
+* Build test app: ```bundle exec rake engine_cart:generate```
 * And run tests: ```bundle exec rake spec```
