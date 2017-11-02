@@ -8,3 +8,4 @@ pkg/
 .ruby-gemset
 
 .internal_test_app
+coverage
