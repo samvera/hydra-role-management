@@ -13,7 +13,7 @@
   <% @role.users.each do |user| %>
     <li><%= user.user_key %>
       <% if can? :remove_user, Role %>
-        <%= button_to t('role-management.edit.remove'), role_management.role_user_path(@role, user), :method=>:delete, :class=>'btn btn-danger' %>
+        <%= button_to t('role-management.edit.remove'), role_management.role_user_path(@role, user.id), :method=>:delete, :class=>'btn btn-danger' %>
       <% end %>
     </li>
   <% end %>
