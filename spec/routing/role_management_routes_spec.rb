@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 describe 'Routes for role_management', type: :routing do
   routes { Hydra::RoleManagement::Engine.routes }
 
@@ -23,6 +23,10 @@ describe 'Routes for role_management', type: :routing do
   context 'when customizing the engine routes' do
     before do
       routes.draw { Hydra::RoleManagement.draw_routes(self, path: '/admin/groups') }
+      Rails.application.reload_routes!
+    end
+
+    after do
       Rails.application.reload_routes!
     end
 

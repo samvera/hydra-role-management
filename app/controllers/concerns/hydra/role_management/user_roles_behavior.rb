@@ -1,5 +1,7 @@
+# frozen_string_literal: true
 module Hydra
   module RoleManagement
+    # Module defining Controller actions for adding and managing Roles for Users
     module UserRolesBehavior
       extend ActiveSupport::Concern
 
@@ -15,7 +17,7 @@ module Hydra
           u.save!
           redirect_to role_management.role_path(@role)
         else
-          redirect_to role_management.role_path(@role), :flash=> {:error=>"Unable to find the user #{params[:user_key]}"}
+          redirect_to role_management.role_path(@role), flash: { error: "Unable to find the user #{params[:user_key]}" }
         end
       end
 
@@ -27,14 +29,13 @@ module Hydra
 
       protected
 
-      def find_user
-        ::User.send("find_by_#{find_column}".to_sym, params[:user_key])
-      end
+        def find_user
+          ::User.send("find_by_#{find_column}".to_sym, params[:user_key])
+        end
 
-      def find_column
-        Devise.authentication_keys.first
-      end
+        def find_column
+          Devise.authentication_keys.first
+        end
     end
   end
 end
-

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'coveralls'
 Coveralls.wear!
 
-ENV["RAILS_ENV"] ||= 'test'
-require "bundler/setup"
+ENV['RAILS_ENV'] ||= 'test'
+require 'bundler/setup'
 
 require 'engine_cart'
 EngineCart.load_application!
@@ -11,6 +12,7 @@ require 'rails-controller-testing'
 require 'rspec/rails'
 require 'rspec/its'
 require 'hydra/role_management'
+require 'pry-byebug'
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true

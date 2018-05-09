@@ -1,9 +1,10 @@
-class UserRoles < ActiveRecord::Migration<%= '[5.0]' if Rails::VERSION::MAJOR >= 5 %>
+# frozen_string_literal: true
+class UserRoles < ActiveRecord::Migration[5.0]
   def up
     create_table :roles do |t|
       t.string :name
     end
-    create_table :roles_users, :id => false do |t|
+    create_table :roles_users, id: false do |t|
       t.references :role
       t.references :user
     end

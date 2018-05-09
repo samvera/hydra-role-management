@@ -1,52 +1,52 @@
+# frozen_string_literal: true
 describe Hydra::RoleManagement::UserRoles do
   let(:librarian) { Role.create!(name: 'librarian') }
-  describe "a real user" do
-    subject do
+  describe 'a real user' do
+    subject(:user) do
       User.create!(email: 'fred@example.com', password: 'password')
     end
 
-    it "should have admin?" do
-      expect(subject).not_to be_admin
+    it 'has admin?' do
+      expect(user).not_to be_admin
     end
 
-    describe "with roles" do
+    describe 'with roles' do
       before do
-        subject.roles << librarian
+        user.roles << librarian
       end
 
-      its(:roles) { should eq [librarian] }
-      its(:groups) { should include('registered', 'librarian') }
+      its(:roles) { is_expected.to eq [librarian] }
+      its(:groups) { is_expected.to include('registered', 'librarian') }
     end
   end
 
-  describe "when DeviseGuests is installed" do
+  describe 'when DeviseGuests is installed' do
     before do
-      stub_const("DeviseGuests", true)
+      stub_const('DeviseGuests', true)
     end
 
-    describe "a real user" do
-      subject do
+    describe 'a real user' do
+      subject(:user) do
         User.create!(email: 'fred@example.com', password: 'password')
       end
 
-      it { should_not be_admin }
+      it { is_expected.not_to be_admin }
 
-      describe "with roles" do
+      describe 'with roles' do
         before do
-          subject.roles << librarian
+          user.roles << librarian
         end
 
-        its(:groups) { should include('registered', 'librarian') }
+        its(:groups) { is_expected.to include('registered', 'librarian') }
       end
     end
-    describe "a guest user" do
-      subject do
+    describe 'a guest user' do
+      subject(:user) do
         User.create!(email: 'fred@example.com', password: 'password', guest: true)
       end
 
-      it { should_not be_admin }
-      its(:groups) { should be_empty }
+      it { is_expected.not_to be_admin }
+      its(:groups) { is_expected.to be_empty }
     end
   end
-
 end
