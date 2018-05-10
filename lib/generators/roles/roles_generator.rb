@@ -58,7 +58,7 @@ This generator makes the following changes to your application:
   # The engine routes have to come after the devise routes so that /users/sign_in will work
   def inject_routes
     routing_code = "mount Hydra::RoleManagement::Engine => '/'"
-    sentinel = /devise_for :users/
+    sentinel = /devise_for :users(.*)$/
     inject_into_file 'config/routes.rb', "\n  #{routing_code}\n", { :after => sentinel, :verbose => false }
   end
 
