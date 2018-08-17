@@ -16,12 +16,14 @@ Gem::Specification.new do |gem|
   gem.version       = Hydra::RoleManagement::VERSION
   gem.license       = 'Apache 2.0'
 
-  gem.add_dependency 'bootstrap_form'
   gem.add_dependency 'blacklight'
+  gem.add_dependency 'bootstrap_form'
   gem.add_dependency 'cancancan'
+
+  gem.add_development_dependency 'pry-byebug'
+  gem.add_development_dependency 'engine_cart', '~> 2.0'
   gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'rspec-rails'
-  gem.add_development_dependency 'rspec-its'
   gem.add_development_dependency 'rails-controller-testing', '~> 0'
-  gem.add_development_dependency 'engine_cart', '~> 1.0'
+  gem.add_development_dependency 'rspec-its'
+  gem.add_development_dependency 'rspec-rails'
 end
