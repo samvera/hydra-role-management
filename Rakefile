@@ -1,23 +1,20 @@
 #!/usr/bin/env rake
+# frozen_string_literal: true
 require 'bundler/setup'
-require "bundler/gem_tasks"
-
-require 'rspec/core/rake_task'
+require 'bundler/gem_tasks'
 require 'engine_cart/rake_task'
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 
+desc 'Run style checker'
+RuboCop::RakeTask.new(:rubocop) do |task|
+  task.fail_on_error = true
+end
 
-desc 'Default: run ci.'
-task :default => :ci
+desc 'Run the tests'
+task ci: [:rubocop, 'engine_cart:generate'] do
+  RSpec::Core::RakeTask.new(:spec)
+  Rake::Task['spec'].invoke
+end
 
-
-desc "Make clean, generate test app, and run the tests"
-task :ci => [:clean, :generate, :spec]
-
-desc "Run the tests"
-RSpec::Core::RakeTask.new(:spec)
-
-desc "Create the test rails app"
-task :generate => 'engine_cart:generate'
-
-desc "Clean out the test rails app"
-task :clean => 'engine_cart:clean'
+task default: :ci

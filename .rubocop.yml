@@ -1,0 +1,50 @@
+inherit_gem:
+  bixby: bixby_default.yml
+
+AllCops:
+  TargetRubyVersion: 2.4
+
+Bundler/DuplicatedGem:
+  Exclude:
+    - 'Gemfile'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/controllers/roles_controller_spec.rb'
+    - 'spec/controllers/user_roles_controller_spec.rb'
+    - 'spec/lib/user_roles_spec.rb'
+    - 'spec/models/role_spec.rb'
+    - 'spec/routing/role_management_routes_spec.rb'
+
+Metrics/LineLength:
+  Exclude:
+    - ''
+    - 'lib/generators/roles/roles_generator.rb'
+    - 'spec/controllers/roles_controller_spec.rb'
+    - 'spec/controllers/user_roles_controller_spec.rb'
+    - 'spec/lib/user_roles_spec.rb'
+    - 'spec/routing/role_management_routes_spec.rb'
+    - 'spec/test_app_templates/config/initializers/hydra_config.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/generators/roles/roles_generator.rb'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'lib/generators/roles/roles_generator.rb'
+
+Naming/FileName:
+  Exclude:
+    - 'Gemfile'
+    - 'hydra-role-management.gemspec'
+    - 'lib/hydra-role-management.rb'
+
+Rails/HasAndBelongsToMany:
+  Exclude:
+    - 'app/models/concerns/hydra/role_management/user_roles.rb'
+    - 'app/models/role.rb'
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/routing/role_management_routes_spec.rb'
