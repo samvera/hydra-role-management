@@ -31,18 +31,6 @@ jobs:
           paths:
           - project/*
           - project/**/*
-  lint:
-    parameters:
-      ruby_version:
-        type: string
-        default: 2.5.5
-    executor:
-      name: 'samvera/ruby'
-      ruby_version: << parameters.ruby_version >>
-    steps:
-      - attach_workspace:
-          at: ~/
-      - samvera/rubocop
   build:
     parameters:
       ruby_version:
@@ -64,6 +52,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - samvera/rubocop
       - samvera/engine_cart_generate:
           cache_key: v1-internal-test-app-{{ checksum "hydra-role-management.gemspec" }}-{{ checksum "spec/test_app_templates/lib/generators/test_app_generator.rb" }}-{{ checksum "lib/generators/roles/roles_generator.rb" }}-<< parameters.rails_version >>-<< parameters.ruby_version >>
       - samvera/bundle_for_gem:
@@ -104,10 +93,6 @@ workflows:
       - bundle:
           ruby_version: "2.5.5"
           rails_version: "5.1.7"
-      - lint:
-          ruby_version: "2.5.5"
-          requires:
-            - bundle
       - build:
           ruby_version: "2.5.5"
           rails_version: "5.1.7"
@@ -118,10 +103,8 @@ workflows:
           ruby_version: "2.5.5"
           requires:
             - build
-            - lint
       - test:
           name: "ruby2-6-2"
           ruby_version: "2.6.2"
           requires:
             - build
-            - lint
