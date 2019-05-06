@@ -28,4 +28,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec-its'
   gem.add_development_dependency 'rspec-rails'
+  gem.add_development_dependency 'rspec_junit_formatter'
 end
