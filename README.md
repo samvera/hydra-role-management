@@ -1,7 +1,7 @@
 # hydra-role-management
 
 Code:
-[![Build Status](https://travis-ci.org/samvera/hydra-role-management.svg?branch=master)](https://travis-ci.org/samvera/hydra-role-management)
+[![CircleCI](https://circleci.com/gh/samvera/hydra-role-management.svg?style=svg)](https://circleci.com/gh/samvera/hydra-role-management)
 [![Gem Version](https://badge.fury.io/rb/hydra-role-management.svg)](https://badge.fury.io/rb/hydra-role-management)
 [![Coverage Status](https://coveralls.io/repos/github/samvera/hydra-role-management/badge.svg?branch=master)](https://coveralls.io/github/samvera/hydra-role-management?branch=master)
 
