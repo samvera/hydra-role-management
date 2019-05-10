@@ -7,13 +7,13 @@ jobs:
     parameters:
       ruby_version:
         type: string
-        default: 2.5.5
+        default: 2.6.3
       bundler_version:
         type: string
         default: 1.17.3
       rails_version:
         type: string
-        default: '5.2.2'
+        default: '5.2.3'
     executor:
       name: 'samvera/ruby'
       ruby_version: << parameters.ruby_version >>
@@ -35,7 +35,7 @@ jobs:
     parameters:
       ruby_version:
         type: string
-        default: 2.5.5
+        default: 2.6.3
     executor:
       name: 'samvera/ruby'
       ruby_version: << parameters.ruby_version >>
@@ -47,13 +47,13 @@ jobs:
     parameters:
       ruby_version:
         type: string
-        default: 2.5.5
+        default: 2.6.3
       bundler_version:
         type: string
         default: 1.17.3
       rails_version:
         type: string
-        default: '5.2.2'
+        default: '5.2.3'
     executor:
       name: 'samvera/ruby'
       ruby_version: << parameters.ruby_version >>
@@ -79,12 +79,12 @@ jobs:
     parameters:
       ruby_version:
         type: string
-        default: 2.5.5
+        default: 2.6.3
       bundler_version:
         type: string
         default: 1.17.3
     executor:
-      name: 'samvera/ruby_fcrepo_solr_redis'
+      name: 'samvera/ruby_fcrepo_solr'
       ruby_version: << parameters.ruby_version >>
     steps:
       - attach_workspace:
@@ -96,30 +96,125 @@ jobs:
       - samvera/parallel_rspec
 
 workflows:
-  version: 2
   ci:
     jobs:
       - bundle:
+          name: "bundle_ruby2-6_rails5-2"
+          ruby_version: "2.6.3"
+          rails_version: "5.2.3"
+      - lint:
+          name: "lint_ruby2-6_rails5-2"
+          ruby_version: "2.6.3"
+          requires:
+            - bundle_ruby2-6_rails5-2
+      - build:
+          name: "build_ruby2-6_rails5-2"
+          ruby_version: "2.6.3"
+          rails_version: "5.2.3"
+          requires:
+            - bundle_ruby2-6_rails5-2
+      - test:
+          name: "ruby2-6_rails5-2"
+          ruby_version: "2.6.3"
+          requires:
+            - build_ruby2-6_rails5-2
+      - bundle:
+          name: "bundle_ruby2-5_rails5-2"
+          ruby_version: "2.5.5"
+          rails_version: "5.2.3"
+      - lint:
+          name: "lint_ruby2-5_rails5-2"
+          ruby_version: "2.5.5"
+          requires:
+            - bundle_ruby2-5_rails5-2
+      - build:
+          name: "build_ruby2-5_rails5-2"
+          ruby_version: "2.5.5"
+          rails_version: "5.2.3"
+          requires:
+            - bundle_ruby2-5_rails5-2
+      - test:
+          name: "ruby2-5_rails5-2"
+          ruby_version: "2.5.5"
+          requires:
+            - build_ruby2-5_rails5-2
+      - bundle:
+          name: "bundle_ruby2-4_rails5-2"
+          ruby_version: "2.4.6"
+          rails_version: "5.2.3"
+      - lint:
+          name: "lint_ruby2-4_rails5-2"
+          ruby_version: "2.4.6"
+          requires:
+            - bundle_ruby2-4_rails5-2
+      - build:
+          name: "build_ruby2-4_rails5-2"
+          ruby_version: "2.4.6"
+          rails_version: "5.2.3"
+          requires:
+            - bundle_ruby2-4_rails5-2
+      - test:
+          name: "ruby2-4_rails5-2"
+          ruby_version: "2.4.6"
+          requires:
+            - build_ruby2-4_rails5-2
+      - bundle:
+          name: "bundle_ruby2-6_rails5-1"
+          ruby_version: "2.6.3"
+          rails_version: "5.1.7"
+      - lint:
+          name: "lint_ruby2-6_rails5-1"
+          ruby_version: "2.6.3"
+          requires:
+            - bundle_ruby2-6_rails5-1
+      - build:
+          name: "build_ruby2-6_rails5-1"
+          ruby_version: "2.6.3"
+          rails_version: "5.1.7"
+          requires:
+            - bundle_ruby2-6_rails5-1
+      - test:
+          name: "ruby2-6_rails5-1"
+          ruby_version: "2.6.3"
+          requires:
+            - build_ruby2-6_rails5-1
+      - bundle:
+          name: "bundle_ruby2-5_rails5-1"
           ruby_version: "2.5.5"
           rails_version: "5.1.7"
       - lint:
+          name: "lint_ruby2-5_rails5-1"
           ruby_version: "2.5.5"
           requires:
-            - bundle
+            - bundle_ruby2-5_rails5-1
       - build:
+          name: "build_ruby2-5_rails5-1"
           ruby_version: "2.5.5"
           rails_version: "5.1.7"
           requires:
-            - bundle
+            - bundle_ruby2-5_rails5-1
       - test:
-          name: "ruby2-5-5"
+          name: "ruby2-5_rails5-1"
           ruby_version: "2.5.5"
           requires:
-            - build
-            - lint
-      - test:
-          name: "ruby2-6-2"
-          ruby_version: "2.6.2"
+            - build_ruby2-5_rails5-1
+      - bundle:
+          name: "bundle_ruby2-4_rails5-1"
+          ruby_version: "2.4.6"
+          rails_version: "5.1.7"
+      - lint:
+          name: "lint_ruby2-4_rails5-1"
+          ruby_version: "2.4.6"
           requires:
-            - build
-            - lint
+            - bundle_ruby2-4_rails5-1
+      - build:
+          name: "build_ruby2-4_rails5-1"
+          ruby_version: "2.4.6"
+          rails_version: "5.1.7"
+          requires:
+            - bundle_ruby2-4_rails5-1
+      - test:
+          name: "ruby2-4_rails5-1"
+          ruby_version: "2.4.6"
+          requires:
+            - build_ruby2-4_rails5-1
