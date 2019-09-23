@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'bootstrap_form'
   gem.add_dependency 'bundler', '>= 1.5'
   gem.add_dependency 'cancancan'
-  gem.add_dependency 'json', '~> 1.8'
+  gem.add_dependency 'json', '>= 1.8'
   gem.add_development_dependency 'bixby', '~> 1.0.0'
   gem.add_development_dependency 'engine_cart', '~> 2.1'
   gem.add_development_dependency 'pry-byebug'
