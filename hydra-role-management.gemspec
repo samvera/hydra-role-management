@@ -3,7 +3,7 @@ require File.expand_path('../lib/hydra/role_management/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ['Justin Coyne']
-  gem.email         = ['justin@curationexperts.com']
+  gem.email         = ['jcoyne@justincoyne.com']
   gem.description   = 'Rails engine to do user roles in an RDBMS for hydra-head'
   gem.summary       = 'Rails engine to do user roles in an RDBMS for hydra-head'
   gem.homepage      = 'https://github.com/samvera/hydra-role-management'
