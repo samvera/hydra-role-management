@@ -36,6 +36,8 @@ else
     gem 'sass-rails', '>= 5.0'
   when /^4.[01]/
     gem 'sass-rails', '< 5.0'
+  when /^5.[12]/
+    gem 'sass-rails', '~> 5.0'
   end
 end
 # END ENGINE_CART BLOCK
