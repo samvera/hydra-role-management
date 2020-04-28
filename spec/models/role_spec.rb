@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe Role do
   subject(:role) { described_class.new }
   it 'requires a name' do

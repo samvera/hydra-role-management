@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Sample
   # This is a stub model for testing.
 

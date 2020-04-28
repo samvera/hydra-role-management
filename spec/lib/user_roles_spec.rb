@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe Hydra::RoleManagement::UserRoles do
   let(:librarian) { Role.create!(name: 'librarian') }
   describe 'a real user' do

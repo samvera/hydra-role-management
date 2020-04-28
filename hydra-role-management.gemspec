@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require File.expand_path('../lib/hydra/role_management/version', __FILE__)
 
 Gem::Specification.new do |gem|
