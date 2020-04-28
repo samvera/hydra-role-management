@@ -1,5 +1,6 @@
 
 # frozen_string_literal: true
+
 require 'rails/generators'
 require 'rails/generators/migration'
 
@@ -74,10 +75,10 @@ This generator makes the following changes to your application:
 
   private
 
-    def better_migration_template(file)
-      sleep 1 # ensure scripts have different time stamps
-      migration_template "migrations/#{file}", "db/migrate/#{file}"
-    rescue StandardError
-      Rails.logger.error "  \e[1m\e[34mMigrations\e[0m  " + $ERROR_INFO.message
-    end
+  def better_migration_template(file)
+    sleep 1 # ensure scripts have different time stamps
+    migration_template "migrations/#{file}", "db/migrate/#{file}"
+  rescue StandardError
+    Rails.logger.error "  \e[1m\e[34mMigrations\e[0m  " + $ERROR_INFO.message
+  end
 end

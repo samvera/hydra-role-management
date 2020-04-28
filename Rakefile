@@ -1,5 +1,6 @@
 #!/usr/bin/env rake
 # frozen_string_literal: true
+
 require 'bundler/setup'
 require 'bundler/gem_tasks'
 require 'engine_cart/rake_task'

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe UserRolesController do
   let(:ability) do
     ability = Object.new
@@ -37,7 +38,7 @@ describe UserRolesController do
         allow(User).to receive(:find_by_email).and_return(nil)
         post :create, params: { role_id: role, user_key: 'foo@example.com' }
         expect(User).to have_received(:find_by_email).with('foo@example.com')
-        expect(flash[:error]).to eq 'Unable to find the user foo@example.com'
+        expect(flash[:error]).to eq 'Invalid user foo@example.com'
       end
       it 'is able to add a user' do
         u = User.create!(email: 'foo@example.com', password: 'password', password_confirmation: 'password')

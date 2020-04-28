@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe 'Routes for role_management', type: :routing do
   routes { Hydra::RoleManagement::Engine.routes }
 

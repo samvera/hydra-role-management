@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UserRoles < ActiveRecord::Migration[5.0]
   def up
     create_table :roles do |t|
@@ -8,8 +9,8 @@ class UserRoles < ActiveRecord::Migration[5.0]
       t.references :role
       t.references :user
     end
-    add_index :roles_users, [:role_id, :user_id]
-    add_index :roles_users, [:user_id, :role_id]
+    add_index :roles_users, %i[role_id user_id]
+    add_index :roles_users, %i[user_id role_id]
   end
 
   def down

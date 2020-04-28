@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe RolesController do
   routes { Hydra::RoleManagement::Engine.routes }
   let(:ability) do

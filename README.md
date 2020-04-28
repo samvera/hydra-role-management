@@ -49,12 +49,12 @@ The Samvera community is here to help. Please see our [support guide](./SUPPORT.
 ## Testing:
 
 * Install a system javascript runtime or uncomment therubyracer in spec/support/Gemfile
-* Ensure that the testing app does not exist: ```bundle exec rake clean```
+* Ensure that the testing app does not exist: ```bundle exec rake engine_cart:clean```
 * Set Rails version you want to test against.  For example:
 	* ```export RAILS_VERSION=5.1.4```
 * Ensure that the correct version of Rails is installed:  ```bundle update```
 * Build test app: ```bundle exec rake engine_cart:generate```
-* And run tests: ```bundle exec rake spec```
+* And run tests: ```bundle exec rake ci```
 
 # Acknowledgments
 

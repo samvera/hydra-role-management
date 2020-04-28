@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Hydra
   module RoleManagement
     # Module offering methods for user behavior managing roles and groups

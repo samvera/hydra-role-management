@@ -1,6 +1,3 @@
-inherit_gem:
-  bixby: bixby_default.yml
-
 AllCops:
   TargetRubyVersion: 2.4
 
@@ -48,3 +45,6 @@ Rails/HasAndBelongsToMany:
 RSpec/DescribeClass:
   Exclude:
     - 'spec/routing/role_management_routes_spec.rb'
+
+Style/Documentation:
+  Enabled: false
