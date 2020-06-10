@@ -32,7 +32,7 @@ module Hydra
 
       def update
         @role = Role.find(params[:id])
-        if @role.update_attributes(role_params)
+        if @role.update(role_params)
           redirect_to role_management.edit_role_path(@role),
                       notice: 'Role was successfully updated.'
         else

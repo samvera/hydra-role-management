@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 require 'rails/generators'
@@ -8,7 +7,7 @@ require 'rails/generators/migration'
 class RolesGenerator < Rails::Generators::Base
   include Rails::Generators::Migration
 
-  source_root File.expand_path('../templates', __FILE__)
+  source_root File.expand_path('templates', __dir__)
 
   argument :model_name, type: :string, default: 'user'
   desc '
@@ -69,6 +68,7 @@ This generator makes the following changes to your application:
   # file will be added to config/initializers and the correct code will be added to the model at runtime.
   def rails3_attr_accessible
     return if ActionController.const_defined? :StrongParameters
+
     Rails.logger.info 'Role model will include attr_accessible :name because you are installing this gem in a Rails 3 app.'
     copy_file 'hydra_role_management_rails3.rb', 'config/initializers/hydra_role_management_rails3.rb'
   end
