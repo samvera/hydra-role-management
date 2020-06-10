@@ -24,6 +24,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'json', '>= 1.8'
   gem.add_development_dependency 'bixby', '~> 1.0.0'
   gem.add_development_dependency 'engine_cart', '~> 2.1'
+  gem.add_development_dependency 'github_changelog_generator'
   gem.add_development_dependency 'pry-byebug'
   gem.add_development_dependency 'rails-controller-testing', '~> 0'
   gem.add_development_dependency 'rake'
