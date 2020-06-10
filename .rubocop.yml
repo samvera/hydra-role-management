@@ -1,5 +1,8 @@
+inherit_gem:
+  bixby: bixby_default.yml
+
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.6
 
 Bundler/DuplicatedGem:
   Exclude:
@@ -14,7 +17,7 @@ Metrics/BlockLength:
     - 'spec/routing/role_management_routes_spec.rb'
     - hydra-role-management.gemspec
 
-Metrics/LineLength:
+Layout/LineLength:
   Exclude:
     - ''
     - 'lib/generators/roles/roles_generator.rb'
