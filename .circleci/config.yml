@@ -20,6 +20,14 @@ jobs:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-action-cable --skip-coffee --skip-puma --skip-test
     steps:
+      - run:
+          name: Update the apt package repository cache
+          command: |
+            sudo apt-get update
+      - run:
+          name: Install required apt packages
+          command: |
+            sudo apt-get install -y libsqlite3-dev
       - samvera/cached_checkout
       - run:
           name: Check for a branch named 'master'
