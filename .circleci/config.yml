@@ -1,7 +1,7 @@
 ---
 version: 2.1
 orbs:
-  samvera: samvera/circleci-orb@0
+  samvera: samvera/circleci-orb@1.0
 jobs:
   test:
     parameters:
@@ -9,7 +9,7 @@ jobs:
         type: string
       bundler_version:
         type: string
-        default: 1.17.3
+        default: 2.3.10
       rails_version:
         type: string
     executor:
@@ -20,6 +20,14 @@ jobs:
       NOKOGIRI_USE_SYSTEM_LIBRARIES: true
       ENGINE_CART_RAILS_OPTIONS: --skip-git --skip-bundle --skip-listen --skip-spring --skip-yarn --skip-keeps --skip-action-cable --skip-coffee --skip-puma --skip-test
     steps:
+      - run:
+          name: Update the apt package repository cache
+          command: |
+            sudo apt-get update
+      - run:
+          name: Install required apt packages
+          command: |
+            sudo apt-get install -y libsqlite3-dev
       - samvera/cached_checkout
       - run:
           name: Check for a branch named 'master'
@@ -53,37 +61,84 @@ workflows:
     jobs:
       - test:
           name: ruby2-7_rails6-0
-          ruby_version: 2.7.0
+          ruby_version: 2.7.5
           rails_version: 6.0.2
       - test:
           name: ruby2-6_rails6-0
-          ruby_version: 2.6.5
+          ruby_version: 2.6.9
           rails_version: 6.0.2
       - test:
           name: ruby2-5_rails6-0
-          ruby_version: 2.5.7
+          ruby_version: 2.5.9
           rails_version: 6.0.2
       - test:
           name: ruby2-7_rails5-2
-          ruby_version: 2.7.0
+          ruby_version: 2.7.5
           rails_version: 5.2.4
       - test:
           name: ruby2-6_rails5-2
-          ruby_version: 2.6.5
+          ruby_version: 2.6.9
           rails_version: 5.2.4
       - test:
           name: ruby2-5_rails5-2
-          ruby_version: 2.5.7
+          ruby_version: 2.5.9
           rails_version: 5.2.4
       - test:
           name: ruby2-7_rails5-1
-          ruby_version: 2.7.0
+          ruby_version: 2.7.5
           rails_version: 5.1.7
       - test:
           name: ruby2-6_rails5-1
-          ruby_version: 2.6.5
+          ruby_version: 2.6.9
           rails_version: 5.1.7
       - test:
           name: ruby2-5_rails5-1
-          ruby_version: 2.5.7
+          ruby_version: 2.5.9
+          rails_version: 5.1.7
+
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - main
+
+    jobs:
+      - test:
+          name: ruby2-7_rails6-0
+          ruby_version: 2.7.5
+          rails_version: 6.0.2
+      - test:
+          name: ruby2-6_rails6-0
+          ruby_version: 2.6.9
+          rails_version: 6.0.2
+      - test:
+          name: ruby2-5_rails6-0
+          ruby_version: 2.5.9
+          rails_version: 6.0.2
+      - test:
+          name: ruby2-7_rails5-2
+          ruby_version: 2.7.5
+          rails_version: 5.2.4
+      - test:
+          name: ruby2-6_rails5-2
+          ruby_version: 2.6.9
+          rails_version: 5.2.4
+      - test:
+          name: ruby2-5_rails5-2
+          ruby_version: 2.5.9
+          rails_version: 5.2.4
+      - test:
+          name: ruby2-7_rails5-1
+          ruby_version: 2.7.5
+          rails_version: 5.1.7
+      - test:
+          name: ruby2-6_rails5-1
+          ruby_version: 2.6.9
+          rails_version: 5.1.7
+      - test:
+          name: ruby2-5_rails5-1
+          ruby_version: 2.5.9
           rails_version: 5.1.7
