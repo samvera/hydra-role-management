@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
   gem.version       = Hydra::RoleManagement::VERSION
   gem.license       = 'Apache 2.0'
+  gem.metadata      = { "rubygems_mfa_required" => "true" }
 
   gem.add_dependency 'blacklight'
   gem.add_dependency 'bootstrap_form'
