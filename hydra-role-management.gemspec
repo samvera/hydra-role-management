@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.license       = 'Apache 2.0'
   gem.metadata      = { "rubygems_mfa_required" => "true" }
 
-  gem.add_dependency 'blacklight'
+  gem.add_dependency 'blacklight', '< 8'
   gem.add_dependency 'bootstrap_form'
   gem.add_dependency 'bundler', '>= 1.5'
   gem.add_dependency 'cancancan'
